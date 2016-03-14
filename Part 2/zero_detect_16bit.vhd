@@ -9,7 +9,7 @@ end zero_detect_16bit;
 architecture Behavioral of zero_detect_16bit is
 
 begin
-	Z <= '1' when S="0000000000000000" else
+	Z <= '1' after 1 ns when S="0000000000000000" else
 		'0';
 
 --	Z <= not (S(0) or S(1) or S(2) or S(3) or S(4) or S(5) or S(6) or S(7) or 
