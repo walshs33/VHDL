@@ -34,7 +34,7 @@ architecture Behavioral of function_unit is
 			S : in  STD_LOGIC_VECTOR (1 downto 0);
 			In_r : in  STD_LOGIC;
 			In_l : in  STD_LOGIC
---			Out_r : out  STD_LOGIC;
+--			Out_r : out  STD_LOGIC;		--not neededfor this part of the assignment
 --			Out_l : out  STD_LOGIC
 			);
 	END COMPONENT;
@@ -48,14 +48,6 @@ architecture Behavioral of function_unit is
 			Z : out  STD_LOGIC
 			);
 	END COMPONENT;
-	
---	--zero detect
---	COMPONENT zero_detect
---	PORT(
---			S : in  STD_LOGIC_VECTOR (15 downto 0);
---			Z : out  STD_LOGIC
---			);
---	END COMPONENT;
 	
 	--2 to 1 multiplexer
 	COMPONENT mux_2_1_16bit
@@ -89,7 +81,7 @@ begin
 				In_r => '0',
 				In_l => '0',
 				S => S(3 downto 2)
---				Out_r => C,
+--				Out_r => C,		--not needed for this part of the asssignment
 --				Out_l => C
 	);
 	
@@ -101,21 +93,18 @@ begin
 				Z => F
 	);
 	
-	--overflow detect
+	--overflow flag
 	overflow0: overflow PORT MAP(
 				A => A(15),
 				B => B(15),
 				S => ALU_out(15),
 				Z => V
 	);
-----	--zero detect for flags
---	zero_detect0: zero_detect PORT MAP(
---				S => ALU_out,
---				Z => Z
---	);
 
+	--negative flag
 	N <= ALU_out(15);
 
+	--zero flag
 	Z <= not (ALU_out(0) or ALU_out(1) or ALU_out(2) or ALU_out(3) or ALU_out(4) or ALU_out(5) or ALU_out(6) or ALU_out(7) or 
 	ALU_out(8) or ALU_out(9) or ALU_out(10) or ALU_out(11) or ALU_out(12) or ALU_out(13) or ALU_out(14) or ALU_out(15)) after 1 ns;
 end Behavioral;
