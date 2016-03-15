@@ -2,16 +2,10 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
 entity datapath is
-    Port ( load : in  STD_LOGIC;
+    Port ( control : in STD_LOGIC_VECTOR(16 downto 0);
 			  clk : in STD_LOGIC;
-           A_sel : in  STD_LOGIC_VECTOR (2 downto 0);
-           B_sel : in  STD_LOGIC_VECTOR (2 downto 0);
            const_in : in  STD_LOGIC_VECTOR (15 downto 0);
-           MB_sel : in  STD_LOGIC;
            data_in : in  STD_LOGIC_VECTOR (15 downto 0);
-           MD_sel : in  STD_LOGIC;
-           dest_sel : in  STD_LOGIC_VECTOR (2 downto 0);
-           FS_in : in  STD_LOGIC_VECTOR (4 downto 0);
            V : out  STD_LOGIC;
            C : out  STD_LOGIC;
            N : out  STD_LOGIC;
@@ -62,6 +56,9 @@ architecture Behavioral of datapath is
 
 --signals
 signal data_mux_out, a_data_out, b_data_out, b_mux_out, function_unit_out : STD_LOGIC_VECTOR (15 downto 0);
+signal load, MD_sel, MB_sel : STD_LOGIC;
+signal FS_in : STD_LOGIC_VECTOR(4 downto 0);
+signal A_sel, B_sel, dest_sel : STD_LOGIC_VECTOR(2 downto 0);
 
 begin
 --port maps
@@ -104,6 +101,15 @@ begin
 				S => MD_sel,
 				Z => data_mux_out
 	);
+	
+	--control word mappings
+	load <= control(0);
+	MD_sel <= control(1);
+	FS_in <= control(6 downto 2);
+	MB_sel <= control(7);
+	B_sel <= control(10 downto 8);
+	A_Sel <= control(13 downto 11);
+	dest_sel <= control(16 downto 14);
 	
 	address_out <= a_data_out;
 	data_out <= b_data_out;

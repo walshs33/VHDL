@@ -10,16 +10,10 @@ ARCHITECTURE behavior OF datapath_tb IS
  
     COMPONENT datapath
     PORT(
-         load : IN  std_logic;
+			control : in STD_LOGIC_VECTOR(16 downto 0);
          clk : IN  std_logic;
-         A_sel : IN  std_logic_vector(2 downto 0);
-         B_sel : IN  std_logic_vector(2 downto 0);
          const_in : IN  std_logic_vector(15 downto 0);
-         MB_sel : IN  std_logic;
          data_in : IN  std_logic_vector(15 downto 0);
-         MD_sel : IN  std_logic;
-         dest_sel : IN  std_logic_vector(2 downto 0);
-         FS_in : IN  std_logic_vector(4 downto 0);
          V : OUT  std_logic;
          C : OUT  std_logic;
          N : OUT  std_logic;
@@ -31,16 +25,10 @@ ARCHITECTURE behavior OF datapath_tb IS
     
 
    --Inputs
-   signal load : std_logic := '0';
+   signal control : std_logic_vector(16 downto 0) := (others => '0');
    signal clk : std_logic := '0';
-   signal A_sel : std_logic_vector(2 downto 0) := (others => '0');
-   signal B_sel : std_logic_vector(2 downto 0) := (others => '0');
    signal const_in : std_logic_vector(15 downto 0) := (others => '0');
-   signal MB_sel : std_logic := '0';
    signal data_in : std_logic_vector(15 downto 0) := (others => '0');
-   signal MD_sel : std_logic := '0';
-   signal dest_sel : std_logic_vector(2 downto 0) := (others => '0');
-   signal FS_in : std_logic_vector(4 downto 0) := (others => '0');
 
  	--Outputs
    signal V : std_logic;
@@ -57,16 +45,10 @@ BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
    uut: datapath PORT MAP (
-          load => load,
+			 control => control,
           clk => clk,
-          A_sel => A_sel,
-          B_sel => B_sel,
           const_in => const_in,
-          MB_sel => MB_sel,
           data_in => data_in,
-          MD_sel => MD_sel,
-          dest_sel => dest_sel,
-          FS_in => FS_in,
           V => V,
           C => C,
           N => N,
@@ -89,77 +71,71 @@ BEGIN
    stim_proc: process
    begin		
       -- hold reset state for 100 ns.
-      load <= '1';
-		A_sel <= "000";
-		B_sel <= "001";
+		control <= "00000000100000001";
+
 		const_in <= "0000000000000000";
-		MB_sel <= '0';
-		MD_sel <= '0';
-		dest_sel <= "000";
-		FS_in <= "00000";
 		wait for 100 ns;	
-		
-		MD_sel <= '1';
+
+		control <= "00000000100000011";		
+
 		data_in <= "0000111100000000";
 		
 		wait for 20 ns;
-		dest_sel <= "001";
+		control <= "00100000100000011";
+
 		data_in <= "1111000011111111";
 		
 		wait for 20 ns;
-		load <= '0';
+		control <= "00100000100000010";
 
 		wait for 20 ns;
-		MD_sel <= '0';
-		dest_sel <= "010";
-		B_sel <= "001";
+		control <= "01000000100000000";
 
 		wait for 20 ns;
-		load <= '1';
+		control <= "01000000100000001";
 		
 		wait for 20 ns;
-		FS_in <="00001";
+		control <= "01000000100000101";
 				
 		wait for 20 ns;
-		FS_in <= "00010";
+		control <= "01000000100001001";
 		
 		wait for 20 ns;
-		FS_in <= "00011";
+		control <= "01000000100001101";
 		
 		wait for 20 ns;
-		FS_in <= "00100";
+		control <= "01000000100010001";
 		
 		wait for 20 ns;
-		FS_in <= "00101";
+		control <= "01000000100010101";
 		
 		wait for 20 ns;
-		FS_in <= "00110";
+		control <= "01000000100011001";
 		
 		wait for 20 ns;
-		FS_in <= "00111";
+		control <= "01000000100011101";
 		
 		wait for 20 ns;
-		FS_in <= "01000";
+		control <= "01000000100100001";
 		
 		wait for 20 ns;
-		FS_in <= "01010";
+		control <= "01000000100101001";
 		
 		wait for 20 ns;
-		FS_in <= "01100";
+		control <= "01000000100110001";
 		
 		wait for 20 ns;
-		FS_in <= "01110";
+		control <= "01000000100111001";
 		
 		wait for 20 ns;
-		FS_in <= "10000";
+		control <= "01000000101000001";
 		
 		wait for 20 ns;
-		FS_in <= "10100";
+		control <= "01000000101010001";
 		
 		wait for 20 ns;
-		FS_in <= "11000";
+		control <= "01000000101100001";
 		
-
       wait;
    end process;
 
