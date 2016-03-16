@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity datapath is
     Port ( control : in STD_LOGIC_VECTOR(16 downto 0);
-			  clk : in STD_LOGIC;
+	   clk : in STD_LOGIC;
            const_in : in  STD_LOGIC_VECTOR (15 downto 0);
            data_in : in  STD_LOGIC_VECTOR (15 downto 0);
            V : out  STD_LOGIC;
