@@ -35,8 +35,8 @@ begin
 
 	b_and <= B and S;
 	not_b_and <= not_B and S;
-	C <= q_out and S;
-	not_C <= not_q_out and S;
+	C <= q_out and S after 1 ns;
+	not_C <= not_q_out and S after 1 ns;
 
 end Behavioral;
 

@@ -45,6 +45,7 @@ BEGIN
       -- hold reset state for 100 ns.
       wait for 100 ns;	
 
+		--test write
 		S <= '0';
 		B <= '0';
 		not_B <= '1';
@@ -56,12 +57,13 @@ BEGIN
 		wait for 20 ns;
 		S <= '1';
 		
+		--test read
 		wait for 20 ns;
 		S <= '0';
 		
 		wait for 20 ns;
 		B <= '0';
-		not_B <= '1';
+		not_B <= '0';
 		
 		wait for 20 ns;
 		S <= '1';
