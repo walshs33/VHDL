@@ -26,22 +26,22 @@ end mux_16_1_16bit;
 architecture Behavioral of mux_16_1_16bit is
 
 begin
-	Z <= In0 after 1 ns when (S(0)='0' and S(1)='0' and S(2)='0' and S(3)='0') else
-		In1 after 1 ns when (S(0)='0' and S(1)='0' and S(2)='0' and S(3)='1') else
-		In2 after 1 ns when (S(0)='0' and S(1)='0' and S(2)='1' and S(3)='0') else
-		In3 after 1 ns when (S(0)='0' and S(1)='0' and S(2)='1' and S(3)='1') else
-		In4 after 1 ns when (S(0)='0' and S(1)='1' and S(2)='0' and S(3)='0') else
-		In5 after 1 ns when (S(0)='0' and S(1)='1' and S(2)='0' and S(3)='1') else
-		In6 after 1 ns when (S(0)='0' and S(1)='1' and S(2)='1' and S(3)='0') else
-		In7 after 1 ns when (S(0)='0' and S(1)='1' and S(2)='1' and S(3)='1') else
-		In8 after 1 ns when (S(0)='1' and S(1)='0' and S(2)='0' and S(3)='0') else
-		In9 after 1 ns when (S(0)='1' and S(1)='0' and S(2)='0' and S(3)='1') else
-		In10 after 1 ns when (S(0)='1' and S(1)='0' and S(2)='1' and S(3)='0') else
-		In11 after 1 ns when (S(0)='1' and S(1)='0' and S(2)='1' and S(3)='1') else
-		In12 after 1 ns when (S(0)='1' and S(1)='1' and S(2)='0' and S(3)='0') else
-		In13 after 1 ns when (S(0)='1' and S(1)='1' and S(2)='0' and S(3)='1') else
-		In14 after 1 ns when (S(0)='1' and S(1)='1' and S(2)='1' and S(3)='0') else
-		In15 after 1 ns when (S(0)='1' and S(1)='1' and S(2)='1' and S(3)='1') else
+	Z <= In0 after 1 ns when (S(3)='0' and S(2)='0' and S(1)='0' and S(0)='0') else
+		In1 after 1 ns when (S(3)='0' and S(2)='0' and S(1)='0' and S(0)='1') else
+		In2 after 1 ns when (S(3)='0' and S(2)='0' and S(1)='1' and S(0)='0') else
+		In3 after 1 ns when (S(3)='0' and S(2)='0' and S(1)='1' and S(0)='1') else
+		In4 after 1 ns when (S(3)='0' and S(2)='1' and S(1)='0' and S(0)='0') else
+		In5 after 1 ns when (S(3)='0' and S(2)='1' and S(1)='0' and S(0)='1') else
+		In6 after 1 ns when (S(3)='0' and S(2)='1' and S(1)='1' and S(0)='0') else
+		In7 after 1 ns when (S(3)='0' and S(2)='1' and S(1)='1' and S(0)='1') else
+		In8 after 1 ns when (S(3)='1' and S(2)='0' and S(1)='0' and S(0)='0') else
+		In9 after 1 ns when (S(3)='1' and S(2)='0' and S(1)='0' and S(0)='1') else
+		In10 after 1 ns when (S(3)='1' and S(2)='0' and S(1)='1' and S(0)='0') else
+		In11 after 1 ns when (S(3)='1' and S(2)='0' and S(1)='1' and S(0)='1') else
+		In12 after 1 ns when (S(3)='1' and S(2)='1' and S(1)='0' and S(0)='0') else
+		In13 after 1 ns when (S(3)='1' and S(2)='1' and S(1)='0' and S(0)='1') else
+		In14 after 1 ns when (S(3)='1' and S(2)='1' and S(1)='1' and S(0)='0') else
+		In15 after 1 ns when (S(3)='1' and S(2)='1' and S(1)='1' and S(0)='1') else
 		"0000000000000000" after 1 ns;
 		
 end Behavioral;

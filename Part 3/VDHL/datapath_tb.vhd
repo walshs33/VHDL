@@ -11,6 +11,9 @@ ARCHITECTURE behavior OF datapath_tb IS
     COMPONENT datapath
     PORT(
 			control : in STD_LOGIC_VECTOR(16 downto 0);
+			TD : in STD_LOGIC;
+			TA : in STD_LOGIC;
+			TB : in STD_LOGIC;
          clk : IN  std_logic;
          const_in : IN  std_logic_vector(15 downto 0);
          data_in : IN  std_logic_vector(15 downto 0);
@@ -26,6 +29,9 @@ ARCHITECTURE behavior OF datapath_tb IS
 
    --Inputs
    signal control : std_logic_vector(16 downto 0) := (others => '0');
+	signal TD : STD_LOGIC := '0';
+	signal TA : STD_LOGIC := '0';
+	signal TB : STD_LOGIC := '0';
    signal clk : std_logic := '0';
    signal const_in : std_logic_vector(15 downto 0) := (others => '0');
    signal data_in : std_logic_vector(15 downto 0) := (others => '0');
@@ -46,6 +52,9 @@ BEGIN
 	-- Instantiate the Unit Under Test (UUT)
    uut: datapath PORT MAP (
 			 control => control,
+			 TD => TD,
+			 TA => TA,
+			 TB => TB,
           clk => clk,
           const_in => const_in,
           data_in => data_in,
@@ -135,6 +144,11 @@ BEGIN
 		
 		wait for 20 ns;
 		control <= "01000000101100001";
+		
+		wait for 50 ns;
+		control <= "00000000100000011";		
+		TD <= '1';
+		data_in <= "0101010101010101";
 		
       wait;
    end process;

@@ -12,9 +12,9 @@ ARCHITECTURE behavior OF register_file_tb IS
     PORT(
          load : IN  std_logic;
          Clk : IN  std_logic;
-         dest_sel : IN  std_logic_vector(2 downto 0);
-         a_sel : IN  std_logic_vector(2 downto 0);
-         b_sel : IN  std_logic_vector(2 downto 0);
+         dest_sel : IN  std_logic_vector(3 downto 0);
+         a_sel : IN  std_logic_vector(3 downto 0);
+         b_sel : IN  std_logic_vector(3 downto 0);
          data : IN  std_logic_vector(15 downto 0);
          a_out : OUT  std_logic_vector(15 downto 0);
          b_out : OUT  std_logic_vector(15 downto 0)
@@ -25,9 +25,9 @@ ARCHITECTURE behavior OF register_file_tb IS
    --Inputs
    signal load : std_logic := '0';
    signal Clk : std_logic := '0';
-   signal dest_sel : std_logic_vector(2 downto 0) := (others => '0');
-   signal a_sel : std_logic_vector(2 downto 0) := (others => '0');
-   signal b_sel : std_logic_vector(2 downto 0) := (others => '0');
+   signal dest_sel : std_logic_vector(3 downto 0) := (others => '0');
+   signal a_sel : std_logic_vector(3 downto 0) := (others => '0');
+   signal b_sel : std_logic_vector(3 downto 0) := (others => '0');
    signal data : std_logic_vector(15 downto 0) := (others => '0');
 
  	--Outputs
@@ -67,68 +67,68 @@ BEGIN
 		--test load into registers
 		data <= "0000000000000001";
 		load <= '1';
-		dest_sel <="000";
+		dest_sel <="0000";
 
       wait for 20 ns;	
-		dest_sel <="001";
+		dest_sel <="0001";
 		data <= "0000000000000011";
 
       wait for 20 ns;	
-		dest_sel <="010";
+		dest_sel <="0010";
 		data <= "0000000000000111";
 
       wait for 20 ns;	
-		dest_sel <="011";
+		dest_sel <="0011";
 		data <= "0000000000001111";
 
       wait for 20 ns;	
-		dest_sel <="100";
+		dest_sel <="0100";
 		data <= "0000000000011111";
 
       wait for 20 ns;	
-		dest_sel <="101";
+		dest_sel <="0101";
 		data <= "0000000000111111";
 
       wait for 20 ns;	
-		dest_sel <="110";
+		dest_sel <="0110";
 		data <= "0000000001111111";
 
       wait for 20 ns;	
-		dest_sel <="111";
+		dest_sel <="0111";
 		data <= "0000000011111111";
 		
 		--test output selection
 		wait for 20 ns;
-		a_sel <= "000";
-		b_sel <= "000";
+		a_sel <= "0000";
+		b_sel <= "0000";
 		
 		wait for 20 ns;
-		a_sel <= "001";
-		b_sel <= "001";
+		a_sel <= "0001";
+		b_sel <= "0001";
 
 		wait for 20 ns;
-		a_sel <= "010";
-		b_sel <= "010";
+		a_sel <= "0010";
+		b_sel <= "0010";
 
 		wait for 20 ns;
-		a_sel <= "011";
-		b_sel <= "011";
+		a_sel <= "0011";
+		b_sel <= "0011";
 
 		wait for 20 ns;
-		a_sel <= "100";
-		b_sel <= "100";
+		a_sel <= "0100";
+		b_sel <= "0100";
 
 		wait for 20 ns;
-		a_sel <= "101";
-		b_sel <= "101";
+		a_sel <= "0101";
+		b_sel <= "0101";
 
 		wait for 20 ns;
-		a_sel <= "110";
-		b_sel <= "110";
+		a_sel <= "0110";
+		b_sel <= "0110";
 
 		wait for 20 ns;
-		a_sel <= "111";
-		b_sel <= "111";
+		a_sel <= "0111";
+		b_sel <= "0111";
 
       wait;
    end process;
