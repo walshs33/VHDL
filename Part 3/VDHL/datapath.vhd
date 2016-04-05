@@ -7,8 +7,10 @@ entity datapath is
 			  TA : in STD_LOGIC;
 			  TB : in STD_LOGIC;
 			  clk : in STD_LOGIC;
-           const_in : in  STD_LOGIC_VECTOR (15 downto 0);
+           const_in : in  STD_LOGIC_VECTOR (2 downto 0);
            data_in : in  STD_LOGIC_VECTOR (15 downto 0);
+			  PC_in : in STD_LOGIC_VECTOR (15 downto 0);
+			  MM : in STD_LOGIC;
            V : out  STD_LOGIC;
            C : out  STD_LOGIC;
            N : out  STD_LOGIC;
@@ -56,9 +58,18 @@ architecture Behavioral of datapath is
 			Z : out std_logic_vector(15 downto 0)
 			);
 	END COMPONENT;
+	
+	--zero fill
+	COMPONENT zero_fill
+	PORT(
+		input : IN std_logic_vector(2 downto 0);          
+		output : OUT std_logic_vector(15 downto 0)
+		);
+	END COMPONENT;
+
 
 --signals
-signal data_mux_out, a_data_out, b_data_out, b_mux_out, function_unit_out : STD_LOGIC_VECTOR (15 downto 0);
+signal zero_fill_out, data_mux_out, a_data_out, b_data_out, b_mux_out, function_unit_out : STD_LOGIC_VECTOR (15 downto 0);
 signal load, MD_sel, MB_sel : STD_LOGIC;
 signal FS_in : STD_LOGIC_VECTOR(4 downto 0);
 signal A_sel, B_sel, dest_sel : STD_LOGIC_VECTOR(3 downto 0);
@@ -90,20 +101,34 @@ begin
 				Z => Z
 	);
 	
-	--2 to 1 multiplexer for B/constant select
+	--2 to 1 multiplexer for B/constant select (MB)
 	mux0: mux_2_1_16bit PORT MAP(
 				In0 => b_data_out,
-				In1 => const_in,
+				In1 => zero_fill_out,
 				S => MB_sel,
 				Z => b_mux_out
 	);
 	
-	--2 to 1 multiplexer for data source select
+	--2 to 1 multiplexer for data source select (MD)
 	mux1: mux_2_1_16bit PORT MAP(
 				In0 => function_unit_out,
 				In1 => data_in,
 				S => MD_sel,
 				Z => data_mux_out
+	);
+	
+	--2 to 1 multiplexer for address select (MM)
+	mux2: mux_2_1_16bit PORT MAP(
+				In0 => PC_in,
+				In1 => a_data_out,
+				S => MM,
+				Z => address_out
+	);
+	
+	--zero fill
+	Inst_zero_fill: zero_fill PORT MAP(
+		input => const_in,
+		output => zero_fill_out
 	);
 	
 	--control word mappings
@@ -115,7 +140,7 @@ begin
 	A_Sel <= control_signal(15 downto 12);
 	dest_sel <= control_signal(19 downto 16);
 	
-	address_out <= a_data_out;
+	--address_out <= a_data_out;
 	data_out <= b_data_out;
 	control_signal(10 downto 0) <= control(10 downto 0);
 	control_signal(11) <= TB;

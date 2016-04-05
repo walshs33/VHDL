@@ -15,8 +15,10 @@ ARCHITECTURE behavior OF datapath_tb IS
 			TA : in STD_LOGIC;
 			TB : in STD_LOGIC;
          clk : IN  std_logic;
-         const_in : IN  std_logic_vector(15 downto 0);
+         const_in : IN  std_logic_vector(2 downto 0);
          data_in : IN  std_logic_vector(15 downto 0);
+ 			PC_in : in STD_LOGIC_VECTOR (15 downto 0);
+			MM : in STD_LOGIC;
          V : OUT  std_logic;
          C : OUT  std_logic;
          N : OUT  std_logic;
@@ -32,9 +34,11 @@ ARCHITECTURE behavior OF datapath_tb IS
 	signal TD : STD_LOGIC := '0';
 	signal TA : STD_LOGIC := '0';
 	signal TB : STD_LOGIC := '0';
+	signal MM : STD_LOGIC := '0';
    signal clk : std_logic := '0';
-   signal const_in : std_logic_vector(15 downto 0) := (others => '0');
+   signal const_in : std_logic_vector(2 downto 0) := (others => '0');
    signal data_in : std_logic_vector(15 downto 0) := (others => '0');
+   signal PC_in : std_logic_vector(15 downto 0) := (others => '0');
 
  	--Outputs
    signal V : std_logic;
@@ -55,9 +59,11 @@ BEGIN
 			 TD => TD,
 			 TA => TA,
 			 TB => TB,
+			 MM => MM,
           clk => clk,
           const_in => const_in,
           data_in => data_in,
+          PC_in => PC_in,
           V => V,
           C => C,
           N => N,
@@ -82,7 +88,7 @@ BEGIN
       -- hold reset state for 100 ns.
 		control <= "00000000100000001";
 
-		const_in <= "0000000000000000";
+		const_in <= "000";
 		wait for 100 ns;	
 
 		control <= "00000000100000011";		
